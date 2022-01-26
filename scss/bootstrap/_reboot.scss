@@ -66,8 +66,8 @@ body {
 }
 
 // Suppress the focus outline on elements that cannot be accessed via keyboard.
-// This prevents an unwanted focus outline from appearing around elements that
-// might still respond to pointer events.
+// This prstaff an unwanted focus outline from appearing around elements that
+// might still respond to pointer staff.
 //
 // Credit: https://github.com/suitcss/base
 [tabindex="-1"]:focus {
@@ -380,7 +380,7 @@ input[type="time"],
 input[type="datetime-local"],
 input[type="month"] {
   // Remove the default appearance of temporal inputs to avoid a Mobile Safari
-  // bug where setting a custom line-height prevents text from being vertically
+  // bug where setting a custom line-height prstaff text from being vertically
   // centered within the input.
   // See https://bugs.webkit.org/show_bug.cgi?id=139848
   // and https://github.com/twbs/bootstrap/issues/11266

@@ -57,7 +57,7 @@
 ----------------------------------*/
 .ui-state-disabled {
 	cursor: default !important;
-	pointer-events: none;
+	pointer-staff: none;
 }
 
 
@@ -310,7 +310,7 @@ button.ui-button::-moz-focus-inner {
 	border-style: solid;
 }
 .ui-checkboxradio-disabled {
-	pointer-events: none;
+	pointer-staff: none;
 }
 .ui-datepicker {
 	width: 17em;
@@ -831,7 +831,7 @@ button.ui-button::-moz-focus-inner {
 	bottom: 0;
 }
 .ui-tabs {
-	position: relative;/* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */
+	position: relative;/* position: relative prstaff IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed") */
 	padding: .2em;
 }
 .ui-tabs .ui-tabs-nav {

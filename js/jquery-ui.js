@@ -42,13 +42,13 @@ var widgetSlice = Array.prototype.slice;
 
 $.cleanData = ( function( orig ) {
 	return function( elems ) {
-		var events, elem, i;
+		var staff, elem, i;
 		for ( i = 0; ( elem = elems[ i ] ) != null; i++ ) {
 			try {
 
 				// Only trigger remove when necessary to save time
-				events = $._data( elem, "events" );
-				if ( events && events.remove ) {
+				staff = $._data( elem, "staff" );
+				if ( staff && staff.remove ) {
 					$( elem ).triggerHandler( "remove" );
 				}
 
@@ -375,7 +375,7 @@ $.Widget.prototype = {
 			.off( this.eventNamespace )
 			.removeAttr( "aria-disabled" );
 
-		// Clean up events and states
+		// Clean up staff and states
 		this.bindings.off( this.eventNamespace );
 	},
 
@@ -4439,7 +4439,7 @@ var widgetsAccordion = $.widget( "ui.accordion", {
 			if ( this.options.event ) {
 				this._off( this.headers, this.options.event );
 			}
-			this._setupEvents( value );
+			this._setupstaff( value );
 		}
 
 		this._super( key, value );
@@ -4627,7 +4627,7 @@ var widgetsAccordion = $.widget( "ui.accordion", {
 
 		this._createIcons();
 
-		this._setupEvents( options.event );
+		this._setupstaff( options.event );
 
 		if ( heightStyle === "fill" ) {
 			maxHeight = parent.height();
@@ -4690,18 +4690,18 @@ var widgetsAccordion = $.widget( "ui.accordion", {
 		return typeof selector === "number" ? this.headers.eq( selector ) : $();
 	},
 
-	_setupEvents: function( event ) {
-		var events = {
+	_setupstaff: function( event ) {
+		var staff = {
 			keydown: "_keydown"
 		};
 		if ( event ) {
 			$.each( event.split( " " ), function( index, eventName ) {
-				events[ eventName ] = "_eventHandler";
+				staff[ eventName ] = "_eventHandler";
 			} );
 		}
 
 		this._off( this.headers.add( this.headers.next() ) );
-		this._on( this.headers, events );
+		this._on( this.headers, staff );
 		this._on( this.headers.next(), { keydown: "_panelKeyDown" } );
 		this._hoverable( this.headers );
 		this._focusable( this.headers );
@@ -5013,8 +5013,8 @@ var widgetsMenu = $.widget( "ui.menu", {
 			},
 			"mouseenter .ui-menu-item": function( event ) {
 
-				// Ignore mouse events while typeahead is active, see #10458.
-				// Prevents focusing the wrong item when typeahead causes a scroll while the mouse
+				// Ignore mouse staff while typeahead is active, see #10458.
+				// Prstaff focusing the wrong item when typeahead causes a scroll while the mouse
 				// is over an item in the menu
 				if ( this.previousFilter ) {
 					return;
@@ -5023,7 +5023,7 @@ var widgetsMenu = $.widget( "ui.menu", {
 				var actualTarget = $( event.target ).closest( ".ui-menu-item" ),
 					target = $( event.currentTarget );
 
-				// Ignore bubbled events on parent items, see #11641
+				// Ignore bubbled staff on parent items, see #11641
 				if ( actualTarget[ 0 ] !== target[ 0 ] ) {
 					return;
 				}
@@ -5625,12 +5625,12 @@ $.widget( "ui.autocomplete", {
 
 	_create: function() {
 
-		// Some browsers only repeat keydown events, not keypress events,
+		// Some browsers only repeat keydown staff, not keypress staff,
 		// so we use the suppressKeyPress flag to determine if we've already
 		// handled the keydown event. #7269
 		// Unfortunately the code for & in keypress is the same as the up arrow,
 		// so we use the suppressKeyPressRepeat flag to avoid handling keypress
-		// events when we know the keydown event was used to modify the
+		// staff when we know the keydown event was used to modify the
 		// search term. #7799
 		var suppressKeyPress, suppressKeyPressRepeat, suppressInput,
 			nodeName = this.element[ 0 ].nodeName.toLowerCase(),
@@ -5848,7 +5848,7 @@ $.widget( "ui.autocomplete", {
 					this.element.trigger( "focus" );
 					this.previous = previous;
 
-					// #6109 - IE triggers two focus events and the second
+					// #6109 - IE triggers two focus staff and the second
 					// is asynchronous, so we need to reset the previous
 					// term synchronously and asynchronously :-(
 					this._delay( function() {
@@ -5879,7 +5879,7 @@ $.widget( "ui.autocomplete", {
 
 		this._addClass( this.liveRegion, null, "ui-helper-hidden-accessible" );
 
-		// Turning off autocomplete prevents the browser from remembering the
+		// Turning off autocomplete prstaff the browser from remembering the
 		// value when navigating through history, so we re-enable autocomplete
 		// if the page is unloaded before the widget is destroyed. #7790
 		this._on( this.window, {
@@ -6170,7 +6170,7 @@ $.widget( "ui.autocomplete", {
 		if ( !this.isMultiLine || this.menu.element.is( ":visible" ) ) {
 			this._move( keyEvent, event );
 
-			// Prevents moving cursor to beginning/end of the text field in some browsers
+			// Prstaff moving cursor to beginning/end of the text field in some browsers
 			event.preventDefault();
 		}
 	},
@@ -7972,7 +7972,7 @@ $.extend( Datepicker.prototype, {
 	/* Generate the date picker content. */
 	_updateDatepicker: function( inst ) {
 		this.maxRows = 4; //Reset the max number of rows being displayed (see #7043)
-		datepicker_instActive = inst; // for delegate hover events
+		datepicker_instActive = inst; // for delegate hover staff
 		inst.dpDiv.empty().append( this._generateHTML( inst ) );
 		this._attachHandlers( inst );
 
@@ -9177,7 +9177,7 @@ $.extend( Datepicker.prototype, {
 } );
 
 /*
- * Bind hover events for datepicker elements.
+ * Bind hover staff for datepicker elements.
  * Done via delegate so the binding only occurs once in the lifetime of the parent div.
  * Global datepicker_instActive, set by _updateDatepicker allows the handlers to find their way back to the active picker.
  */
@@ -9394,7 +9394,7 @@ var widgetsMouse = $.widget( "ui.mouse", {
 	_mouseMove: function( event ) {
 
 		// Only check for mouseups outside the document if you've moved inside the document
-		// at least once. This prevents the firing of mouseup in the case of IE<9, which will
+		// at least once. This prstaff the firing of mouseup in the case of IE<9, which will
 		// fire a mousemove event if content is placed under the cursor. See #7778
 		// Support: IE <9
 		if ( this._mouseMoved ) {
@@ -10391,7 +10391,7 @@ $.ui.plugin.add( "draggable", "connectToSortable", {
 						return ui.helper[ 0 ];
 					};
 
-					// Fire the start events of the sortable with our passed browser event,
+					// Fire the start staff of the sortable with our passed browser event,
 					// and our own helper (so it doesn't create a new one)
 					event.target = sortable.currentItem[ 0 ];
 					sortable._mouseCapture( event, true );
@@ -13289,7 +13289,7 @@ $.ui.ddmanager = {
 	dragStop: function( draggable, event ) {
 		draggable.element.parentsUntil( "body" ).off( "scroll.droppable" );
 
-		// Call prepareOffsets one final time since IE does not fire return scroll events when
+		// Call prepareOffsets one final time since IE does not fire return scroll staff when
 		// overflow was caused by drag (see #5003)
 		if ( !draggable.options.refreshPositions ) {
 			$.ui.ddmanager.prepareOffsets( draggable, event );
@@ -13907,7 +13907,7 @@ var widgetsSelectmenu = $.widget( "ui.selectmenu", [ $.ui.formResetMixin, {
 			this._resizeButton();
 		}
 
-		this._on( this.button, this._buttonEvents );
+		this._on( this.button, this._buttonstaff );
 		this.button.one( "focusin", function() {
 
 			// Delay rendering the menu items until the button receives focus.
@@ -14208,7 +14208,7 @@ var widgetsSelectmenu = $.widget( "ui.selectmenu", [ $.ui.formResetMixin, {
 		}
 	},
 
-	_buttonEvents: {
+	_buttonstaff: {
 
 		// Prevent text selection from being reset when interacting with the selectmenu (#10144)
 		mousedown: function() {
@@ -14536,7 +14536,7 @@ var widgetsSlider = $.widget( "ui.slider", $.ui.mouse, {
 	_refresh: function() {
 		this._createRange();
 		this._createHandles();
-		this._setupEvents();
+		this._setupstaff();
 		this._refreshValue();
 	},
 
@@ -14610,9 +14610,9 @@ var widgetsSlider = $.widget( "ui.slider", $.ui.mouse, {
 		}
 	},
 
-	_setupEvents: function() {
+	_setupstaff: function() {
 		this._off( this.handles );
-		this._on( this.handles, this._handleEvents );
+		this._on( this.handles, this._handlestaff );
 		this._hoverable( this.handles );
 		this._focusable( this.handles );
 	},
@@ -15117,7 +15117,7 @@ var widgetsSlider = $.widget( "ui.slider", $.ui.mouse, {
 		}
 	},
 
-	_handleEvents: {
+	_handlestaff: {
 		keydown: function( event ) {
 			var allowed, curVal, newVal, step,
 				index = $( event.target ).data( "ui-slider-handle-index" );
@@ -15278,7 +15278,7 @@ var widgetsSortable = $.widget( "ui.sortable", $.ui.mouse, {
 		//Let's determine the parent's offset
 		this.offset = this.element.offset();
 
-		//Initialize mouse events for interaction
+		//Initialize mouse staff for interaction
 		this._mouseInit();
 
 		this._setHandleClassName();
@@ -15485,7 +15485,7 @@ var widgetsSortable = $.widget( "ui.sortable", $.ui.mouse, {
 			this._cacheHelperProportions();
 		}
 
-		//Post "activate" events to possible containers
+		//Post "activate" staff to possible containers
 		if ( !noActivation ) {
 			for ( i = this.containers.length - 1; i >= 0; i-- ) {
 				this.containers[ i ]._trigger( "activate", event, this._uiHash( this ) );
@@ -15633,7 +15633,7 @@ var widgetsSortable = $.widget( "ui.sortable", $.ui.mouse, {
 			}
 		}
 
-		//Post events to containers
+		//Post staff to containers
 		this._contactContainers( event );
 
 		//Interconnect with droppables
@@ -15709,7 +15709,7 @@ var widgetsSortable = $.widget( "ui.sortable", $.ui.mouse, {
 				this.currentItem.show();
 			}
 
-			//Post deactivating events to containers
+			//Post deactivating staff to containers
 			for ( var i = this.containers.length - 1; i >= 0; i-- ) {
 				this.containers[ i ]._trigger( "deactivate", null, this._uiHash( this ) );
 				if ( this.containers[ i ].containerCache.over ) {
@@ -15723,7 +15723,7 @@ var widgetsSortable = $.widget( "ui.sortable", $.ui.mouse, {
 		if ( this.placeholder ) {
 
 			//$(this.placeholder[0]).remove(); would have been the jQuery way - unfortunately,
-			// it unbinds ALL events from the original node!
+			// it unbinds ALL staff from the original node!
 			if ( this.placeholder[ 0 ].parentNode ) {
 				this.placeholder[ 0 ].parentNode.removeChild( this.placeholder[ 0 ] );
 			}
@@ -16592,7 +16592,7 @@ var widgetsSortable = $.widget( "ui.sortable", $.ui.mouse, {
 
 		this.reverting = false;
 
-		// We delay all events that have to be triggered to after the point where the placeholder
+		// We delay all staff that have to be triggered to after the point where the placeholder
 		// has been removed and everything else normalized again
 		var i,
 			delayedTriggers = [];
@@ -16634,7 +16634,7 @@ var widgetsSortable = $.widget( "ui.sortable", $.ui.mouse, {
 		}
 
 		// Check if the items Container has Changed and trigger appropriate
-		// events.
+		// staff.
 		if ( this !== this.currentContainer ) {
 			if ( !noPropagation ) {
 				delayedTriggers.push( function( event ) {
@@ -16653,7 +16653,7 @@ var widgetsSortable = $.widget( "ui.sortable", $.ui.mouse, {
 			}
 		}
 
-		//Post events to containers
+		//Post staff to containers
 		function delayEvent( type, instance, container ) {
 			return function( event ) {
 				container._trigger( type, event, instance._uiHash( instance ) );
@@ -16688,7 +16688,7 @@ var widgetsSortable = $.widget( "ui.sortable", $.ui.mouse, {
 		}
 
 		//$(this.placeholder[0]).remove(); would have been the jQuery way - unfortunately,
-		// it unbinds ALL events from the original node!
+		// it unbinds ALL staff from the original node!
 		this.placeholder[ 0 ].parentNode.removeChild( this.placeholder[ 0 ] );
 
 		if ( !this.cancelHelperRemoval ) {
@@ -16701,7 +16701,7 @@ var widgetsSortable = $.widget( "ui.sortable", $.ui.mouse, {
 		if ( !noPropagation ) {
 			for ( i = 0; i < delayedTriggers.length; i++ ) {
 
-				// Trigger all delayed events
+				// Trigger all delayed staff
 				delayedTriggers[ i ].call( this, event );
 			}
 			this._trigger( "stop", event, this._uiHash() );
@@ -16800,7 +16800,7 @@ $.widget( "ui.spinner", {
 		this._setOption( "min", this.options.min );
 		this._setOption( "step", this.options.step );
 
-		// Only format if there is a value, prevents the field from being marked
+		// Only format if there is a value, prstaff the field from being marked
 		// as invalid in Firefox, see #9573.
 		if ( this.value() !== "" ) {
 
@@ -16809,10 +16809,10 @@ $.widget( "ui.spinner", {
 		}
 
 		this._draw();
-		this._on( this._events );
+		this._on( this._staff );
 		this._refresh();
 
-		// Turning off autocomplete prevents the browser from remembering the
+		// Turning off autocomplete prstaff the browser from remembering the
 		// value when navigating through history, so we re-enable autocomplete
 		// if the page is unloaded before the widget is destroyed. #7790
 		this._on( this.window, {
@@ -16836,7 +16836,7 @@ $.widget( "ui.spinner", {
 		return options;
 	},
 
-	_events: {
+	_staff: {
 		keydown: function( event ) {
 			if ( this._start( event ) && this._keydown( event ) ) {
 				event.preventDefault();
@@ -17579,7 +17579,7 @@ $.widget( "ui.tabs", {
 		}
 
 		if ( key === "event" ) {
-			this._setupEvents( value );
+			this._setupstaff( value );
 		}
 
 		if ( key === "heightStyle" ) {
@@ -17633,7 +17633,7 @@ $.widget( "ui.tabs", {
 
 	_refresh: function() {
 		this._setOptionDisabled( this.options.disabled );
-		this._setupEvents( this.options.event );
+		this._setupstaff( this.options.event );
 		this._setupHeightStyle( this.options.heightStyle );
 
 		this.tabs.not( this.active ).attr( {
@@ -17805,11 +17805,11 @@ $.widget( "ui.tabs", {
 			disabled === true );
 	},
 
-	_setupEvents: function( event ) {
-		var events = {};
+	_setupstaff: function( event ) {
+		var staff = {};
 		if ( event ) {
 			$.each( event.split( " " ), function( index, eventName ) {
-				events[ eventName ] = "_eventHandler";
+				staff[ eventName ] = "_eventHandler";
 			} );
 		}
 
@@ -17821,7 +17821,7 @@ $.widget( "ui.tabs", {
 				event.preventDefault();
 			}
 		} );
-		this._on( this.anchors, events );
+		this._on( this.anchors, staff );
 		this._on( this.tabs, { keydown: "_tabKeydown" } );
 		this._on( this.panels, { keydown: "_panelKeydown" } );
 
@@ -18455,8 +18455,8 @@ $.widget( "ui.tooltip", {
 		// we have to check first to avoid defining a title if none exists
 		// (we don't want to cause an element to start matching [title])
 		//
-		// We use removeAttr only for key events, to allow IE to export the correct
-		// accessible attributes. For mouse events, set to empty string to avoid
+		// We use removeAttr only for key staff, to allow IE to export the correct
+		// accessible attributes. For mouse staff, set to empty string to avoid
 		// native tooltip showing up (happens only when removing inside mouseover).
 		if ( target.is( "[title]" ) ) {
 			if ( event && event.type === "mouseover" ) {
@@ -18521,7 +18521,7 @@ $.widget( "ui.tooltip", {
 	},
 
 	_registerCloseHandlers: function( event, target ) {
-		var events = {
+		var staff = {
 			keyup: function( event ) {
 				if ( event.keyCode === $.ui.keyCode.ESCAPE ) {
 					var fakeEvent = $.Event( event );
@@ -18534,18 +18534,18 @@ $.widget( "ui.tooltip", {
 		// Only bind remove handler for delegated targets. Non-delegated
 		// tooltips will handle this in destroy.
 		if ( target[ 0 ] !== this.element[ 0 ] ) {
-			events.remove = function() {
+			staff.remove = function() {
 				this._removeTooltip( this._find( target ).tooltip );
 			};
 		}
 
 		if ( !event || event.type === "mouseover" ) {
-			events.mouseleave = "close";
+			staff.mouseleave = "close";
 		}
 		if ( !event || event.type === "focusin" ) {
-			events.focusout = "close";
+			staff.focusout = "close";
 		}
-		this._on( true, target, events );
+		this._on( true, target, staff );
 	},
 
 	close: function( event ) {

@@ -34,7 +34,7 @@
 						'Protected Public RaiseEvent ReadOnly ReDim REM RemoveHandler Resume ' +
 						'Return Select Set Shadows Shared Short Single Static Step Stop String ' +
 						'Structure Sub SyncLock Then Throw To True Try TypeOf Unicode Until ' +
-						'Variant When While With WithEvents WriteOnly Xor';
+						'Variant When While With Withstaff WriteOnly Xor';
 
 		this.regexList = [
 			{ regex: /'.*$/gm,										css: 'comments' },			// one line comments
